@@ -1,7 +1,7 @@
 import { User } from '../../domain/entities/user.entity';
 import { randomUUID } from 'crypto';
-import { InMemoryUserRepository } from '../../infra/repositories/in-memory-user.repository';
 import { Inject, Injectable } from '@nestjs/common';
+import type { IUserRepository } from '../../domain/repositories/user.repository';
 
 interface CreateUserInput {
   name: string;
@@ -13,7 +13,7 @@ interface CreateUserInput {
 export class CreateUserUseCase {
   constructor(
     @Inject('UserRepository')
-    private readonly userRepository: InMemoryUserRepository,
+    private readonly userRepository: IUserRepository,
   ) {}
 
   execute({ email, name, password }: CreateUserInput): User {
